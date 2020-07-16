@@ -10,15 +10,14 @@ if (is_readable($database) && filesize($database) > 0) {
 }
 // Create an empty file for the database
 if (!$error) {
-    $createdOk = @touch($database);
-    if (!$createdOk) {
+    if (@touch($database)) {
         $error = sprintf( 'Could not create the database, please allow the server to create new files in \'%s\'', dirname($database));
     }
 }
 // Grab the SQL commands we want to run on the database
 if (!$error) {
     $sql = file_get_contents($root . '/data/init.sql');
-    if ($sql === false) {
+    if (!$sql) {
         $error = 'Cannot find SQL file';
     }
 }
@@ -26,7 +25,7 @@ if (!$error) {
 if (!$error) {
     $pdo = new PDO($dsn);
     $result = $pdo->exec($sql);
-    if ($result === false) {
+    if (!$result) {
         $error = 'Could not run SQL: ' . print_r($pdo->errorInfo(), true);
     }
 }
