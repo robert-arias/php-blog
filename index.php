@@ -1,3 +1,19 @@
+<?php
+require_once 'lib/common.php';
+// Connect to the database, run a query, handle errors
+$pdo = getPDO();
+$stmt = $pdo->query(
+    'SELECT
+        id, title, created_at, body
+    FROM
+        post
+    ORDER BY
+        created_at DESC'
+);
+if (!$stmt) {
+    throw new Exception('There was a problem running this query');
+}
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -5,17 +21,21 @@
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
     </head>
     <body>
-        <h1>Blog title</h1>
-        <p>This paragraph summarises what the blog is about.</p>
-        
-        <?php for ($postId = 1; $postId <= 3; $postId++): ?>
-            <h2>Article <?php echo $postId ?> title</h2>
-            <div>dd Mon YYYY</div>
-            <p>A paragraph summarising article <?php echo $postId ?>.</p>
+        <?php require 'templates/title.php' ?>
+        <?php while ($row = $stmt->fetch(PDO::FETCH_ASSOC)): ?>
+            <h2>
+                <?php echo htmlEscape($row['title']) ?>
+            </h2>
+            <div>
+                <?php echo $row['created_at'] ?>
+            </div>
             <p>
-                <a href="#">Read more...</a>
+                <?php echo htmlEscape($row['body']) ?>
             </p>
-        <?php endfor ?>
+            <p>
+                <a href="view-post.php?post_id=<?php echo $row['id'] ?>">Read more...</a>
+            </p>
+        <?php endwhile ?>
 
     </body>
 </html>
