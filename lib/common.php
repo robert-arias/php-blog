@@ -41,12 +41,23 @@ function htmlEscape($html) {
     return htmlspecialchars($html, ENT_HTML5, 'UTF-8');
 }
 
+function redirectAndExit($script) {
+    // Get the domain-relative URL (e.g. /blog/whatever.php or /whatever.php) and work
+    // out the folder (e.g. /blog/ or /).
+    $relativeUrl = $_SERVER['PHP_SELF'];
+    $urlFolder = substr($relativeUrl, 0, strrpos($relativeUrl, '/') + 1);
+    // Redirect to the full URL (http://myhost/blog/script.php)
+    $host = $_SERVER['HTTP_HOST'];
+    $fullUrl = 'http://' . $host . $urlFolder . $script;
+    header('Location: ' . $fullUrl);
+    exit();
+}
 
-function convertSqlDate($sqlDate)
-{
+
+function convertSqlDate($sqlDate) {
     /* @var $date DateTime */
-    $date = DateTime::createFromFormat('Y-m-d', $sqlDate);
-    return $date->format('d M Y');
+    $date = DateTime::createFromFormat('Y-m-d H:i:s', $sqlDate);
+    return $date->format('d M Y, H:i');
 }
 
 /**
@@ -55,8 +66,7 @@ function convertSqlDate($sqlDate)
  * @param integer $postId
  * @return integer
  */
-function countCommentsForPost($postId)
-{
+function countCommentsForPost($postId) {
     $pdo = getPDO();
     $sql = "
         SELECT
@@ -78,8 +88,7 @@ function countCommentsForPost($postId)
  *
  * @param integer $postId
  */
-function getCommentsForPost($postId)
-{
+function getCommentsForPost($postId) {
     $pdo = getPDO();
     $sql = "
         SELECT
