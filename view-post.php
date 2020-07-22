@@ -34,13 +34,13 @@ if ($_POST) {
     if (!$errors) {
         redirectAndExit('view-post.php?post_id=' . $postId);
     }
-    else {
-        $commentData = array(
-            'name' => '',
-            'website' => '',
-            'text' => '',
-        );
-    }
+}
+else {
+    $commentData = array(
+        'name' => '',
+        'website' => '',
+        'text' => '',
+    );
 }
 ?>
 <!DOCTYPE html>
