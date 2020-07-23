@@ -22,6 +22,7 @@ $notFound = isset($_GET['not-found']);
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="css/index.css">
+        <script src="https://kit.fontawesome.com/463141b2af.js" crossorigin="anonymous"></script>
     </head>
     <body>
         <?php require 'templates/title.php' ?>
@@ -32,18 +33,21 @@ $notFound = isset($_GET['not-found']);
         <?php endif ?>
         <?php while ($row = $stmt->fetch(PDO::FETCH_ASSOC)): ?>
             <div class="post">
-                <h2>
+                <h2 class="post__title">
                     <?php echo htmlEscape($row['title']) ?>
                 </h2>
-                <div>
-                    <?php echo convertSqlDate($row['created_at']) ?>
+                <p class="post__date">
+                    <?php echo convertSqlDate($row['created_at']) ?> •
                     (<?php echo countCommentsForPost($row['id']) ?> comments)
-                </div>
-                <p>
+                </p>
+                <p class="post__summary">
                     <?php echo htmlEscape($row['body']) ?>
                 </p>
-                <p>
-                    <a href="view-post.php?post_id=<?php echo $row['id'] ?>">Read more...</a>
+                <p class="post__btn">
+                    <a href="view-post.php?post_id=<?php echo $row['id'] ?>" class="post__link">
+                    <i class="fas fa-link"></i>
+                        Read more
+                    </a>
                 </p>
             </div>
         <?php endwhile ?>
