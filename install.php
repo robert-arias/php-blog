@@ -45,25 +45,19 @@ if (isset($_SESSION['try-install'])) {
     <head>
         <title>Blog installer</title>
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-        <style type="text/css">
-            .box {
-                border: 1px dotted silver;
-                border-radius: 5px;
-                padding: 4px;
-            }
-            .error {
-                background-color: #ff6666;
-            }
-            .success {
-                background-color: #88ff88;
-            }
-        </style>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="css/install.css">
+        <script src="https://kit.fontawesome.com/463141b2af.js" crossorigin="anonymous"></script>
     </head>
     <body>
         <?php if ($attempted): ?>
             <?php if ($error): ?>
-                <div class="error box">
-                    <?php echo $error ?>
+                <div class="error">
+                    <p class="error__icon">⚠️</p>
+                    <div class="container">
+                        <h2 class="error__title">An error has occurred.</h2>
+                        <p class="error__message"><?php echo $error ?></p>
+                    </div>
                 </div>
             <?php else: ?>
                 <div class="success box">
@@ -89,14 +83,15 @@ if (isset($_SESSION['try-install'])) {
                 </div>
             <?php endif ?>
         <?php else: ?>
-            <p>Click the install button to reset the database.</p>
-            <form method="post">
-                <input
-                    name="install"
-                    type="submit"
-                    value="Install"
-                />
+        <div class="install">
+            <h1 class="install__title">Click the install button to reset the database.</h1>
+            <div class="install__arrow">
+                <svg xmlns="http://www.w3.org/2000/svg" class="install__svg"><path d="M7.5 0a.5.5 0 01.5.5v16.17l4.44-4.45a.5.5 0 01.71 0l.7.71a.5.5 0 010 .71l-6.13 6.14a.75.75 0 01-.53.22h-.38a.77.77 0 01-.53-.22L.15 13.64a.5.5 0 010-.71l.7-.71a.49.49 0 01.7 0L6 16.67V.5a.5.5 0 01.5-.5z"></path></svg>
+            </div>
+            <form method="post" class="install__form">
+                <button class="install__btn" name="install" type="submit"><span>Install</span></button>
             </form>
+        </div>
         <?php endif ?>
     </body>
 </html>

@@ -11,7 +11,7 @@ function installBlog(PDO $pdo) {
     $error = '';
     // A security measure, to avoid anyone resetting the database if it already exists
     if (is_readable($database) && filesize($database) > 0) {
-        $error = 'Please delete the existing database manually before installing it afresh';
+        $error = 'Please delete the existing database manually before installing it afresh.';
     }
     // Create an empty file for the database
     if (!$error) {
@@ -23,7 +23,7 @@ function installBlog(PDO $pdo) {
     if (!$error) {
         $sql = file_get_contents($root . '/data/init.sql');
         if (!$sql) {
-            $error = 'Cannot find SQL file';
+            $error = 'Cannot find SQL file.';
         }
     }
     // Connect to the new database and try to run the SQL commands
@@ -77,13 +77,13 @@ function createUser(PDO $pdo, $username, $length = 10) {
     ";
     $stmt = $pdo->prepare($sql);
     if ($stmt === false) {
-        $error = 'Could not prepare the user creation';
+        $error = 'Could not prepare the user creation.';
     }
     if (!$error) {
         // Create a hash of the password, to make a stolen user database (nearly) worthless
         $hash = password_hash($password, PASSWORD_DEFAULT);
         if ($hash === false) {
-            $error = 'Password hashing failed';
+            $error = 'Password hashing failed.';
         }
     }
     // Insert user details, including hashed password
@@ -96,7 +96,7 @@ function createUser(PDO $pdo, $username, $length = 10) {
             )
         );
         if ($result === false) {
-            $error = 'Could not run the user creation';
+            $error = 'Could not run the user creation.';
         }
     }
     if ($error) {
