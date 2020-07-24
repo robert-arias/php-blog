@@ -11,7 +11,7 @@ function installBlog(PDO $pdo) {
     $error = '';
     // A security measure, to avoid anyone resetting the database if it already exists
     if (is_readable($database) && filesize($database) > 0) {
-        $error = 'Please delete the existing database manually before installing it afresh.';
+        $error = 'Please, delete the existing database manually before installing it afresh.';
     }
     // Create an empty file for the database
     if (!$error) {

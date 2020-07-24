@@ -55,31 +55,42 @@ if (isset($_SESSION['try-install'])) {
                     <p class="error__icon">⚠️</p>
                     <div class="container">
                         <h2 class="error__title">An error has occurred.</h2>
-                        <p class="error__message"><?php echo $error ?></p>
+                        <p class="error__message">❌ <?php echo $error ?></p>
                         <a href="install.php" class="error__link btn"><span>Try again</span></a>
                     </div>
                 </div>
             <?php else: ?>
-                <div class="success box">
-                    The database and demo data was created OK.
-                    <?php // Report the counts for each table ?>
-                    <?php foreach (array('post', 'comment') as $tableName): ?>
-                        <?php if (isset($count[$tableName])): ?>
-                            <?php // Prints the count ?>
-                            <?php echo $count[$tableName] ?> new
-                            <?php // Prints the name of the thing ?>
-                            <?php echo $tableName ?>s
-                            were created.
-                        <?php endif ?>
-                    <?php endforeach ?>
-                    <?php // Report the new password ?>
-                    The new '<?php echo htmlEscape($username) ?>' password is
-                    <span style="font-size: 1.2em;"><?php echo htmlEscape($password) ?></span>
-                    (copy it to clipboard if you wish).
-                    <p>
-                        <a href="index.php">View the blog</a>,
-                        or <a href="install.php">install again</a>.
-                    </p>
+                <div class="success">
+                    <p class="success__icon">🎉</p>
+                    <div class="container">
+                        <h2 class="success__title">
+                            The database and demo data have been created successfully!
+                        </h2>
+                        <ul class="success__list">
+                            <?php // Report the counts for each table ?>
+                            <?php foreach (array('post', 'comment') as $tableName): ?>
+                                <?php if (isset($count[$tableName])): ?>
+                                    <li class="success__item">
+                                        ✔️ <?php // Prints the count ?>
+                                            <?php echo $count[$tableName] ?> new
+                                            <?php // Prints the name of the thing ?>
+                                            <?php echo $tableName ?>s
+                                            were created for the <span class="success__highlight"><?php echo $tableName ?></span> table.
+                                    </li>
+                                <?php endif ?>
+                            <?php endforeach ?>
+
+                            <li class="success__item">
+                                ✔️ <?php // Report the new password ?>
+                                    A new username <span class="success__highlight"><?php echo htmlEscape($username) ?></span> was created, whose password is
+                                    <span class="success__highlight" id="password"><?php echo htmlEscape($password) ?></span>
+                                    (copy it to clipboard if you wish).
+                            </li>
+                        </ul>
+                        <p>
+                            <a href="index.php" class="success__link">View the blog</a>, or <a href="install.php" class="success__link">install again</a>.
+                        </p>
+                    </div>
                 </div>
             <?php endif ?>
         <?php else: ?>

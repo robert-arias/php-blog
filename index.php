@@ -44,12 +44,7 @@ $notFound = isset($_GET['not-found']);
                 <p class="post__summary">
                     <?php echo htmlEscape($row['body']) ?>
                 </p>
-                <p class="post__btn">
-                    <a href="view-post.php?post_id=<?php echo $row['id'] ?>" class="post__link">
-                    <i class="fas fa-link"></i>
-                        Read more
-                    </a>
-                </p>
+                <a href="view-post.php?post_id=<?php echo $row['id'] ?>" class="post__link btn"><span>Read more</span></a>
             </div>
         <?php endwhile ?>
 
