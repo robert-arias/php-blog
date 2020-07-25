@@ -23,8 +23,7 @@ if ($_POST) {
 }
 
 if (getAuthUser() !== null) {
-    $_SESSION['errormsg'] = 'Username already logged in.';
-    redirectAndExit('index.php');
+    redirectAndExit('index.php?forbidden=1');
 }
 
 ?>
