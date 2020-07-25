@@ -14,6 +14,23 @@
     background-color: #e1e4e8;
 }
 
+.header__login {
+    float: right;
+    position: relative;
+    top: 15px;
+    z-index: 99;
+}
+
+.header__login a {
+    text-decoration: none;
+    color: hsl(243, 80%, 62%);
+}
+
+.header__name {
+    display: inline;
+    margin-right: 10px;
+}
+
 .header__title {
     display: inline-block;
     font-weight: bold;

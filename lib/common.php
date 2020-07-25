@@ -53,6 +53,15 @@ function redirectAndExit($script) {
     exit();
 }
 
+/**
+* Checks an URL with the current URL.
+* 
+* @param string @URLtoCompare
+* @return boolean
+*/
+function checkURL($URLtoCompare) {
+    return $_SERVER['REQUEST_URI'] == $URLtoCompare;
+}
 
 function convertSqlDate($sqlDate) {
     /* @var $date DateTime */

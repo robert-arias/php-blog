@@ -14,7 +14,15 @@ $stmt = $pdo->query(
 if (!$stmt) {
     throw new Exception('There was a problem running this query');
 }
+//Error message if user tries to go to login when user's already logged in.
+$errormsg = '';
+if (isset($_SESSION['errormsg'])) {
+    //This session variable is set in login.php
+    $errormsg = $_SESSION['errormsg'];
+    unset($_SESSION['errormsg']);
+}
 $notFound = isset($_GET['not-found']);
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -23,10 +31,12 @@ $notFound = isset($_GET['not-found']);
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="css/index.css">
-        <script src="https://kit.fontawesome.com/463141b2af.js" crossorigin="anonymous"></script>
     </head>
     <body>
         <?php require 'templates/title.php' ?>
+        <?php if ($errormsg): ?>
+            <?php echo $errormsg ?>
+        <?php endif ?>
         <?php if ($notFound): ?>
             <div style="border: 1px solid #ff6666; padding: 6px;">
                 Error: cannot find the requested blog post

@@ -21,6 +21,12 @@ if ($_POST) {
         redirectAndExit('index.php');
     }
 }
+
+if (getAuthUser() !== null) {
+    $_SESSION['errormsg'] = 'Username already logged in.';
+    redirectAndExit('index.php');
+}
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -28,7 +34,9 @@ if ($_POST) {
         <title>
             A blog application | Login
         </title>
-        <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="css/login.css">
     </head>
     <body>
         <?php require 'templates/title.php' ?>
@@ -38,17 +46,19 @@ if ($_POST) {
                 The username or password is incorrect, try again
             </div>
         <?php endif ?>
-        <p>Login here:</p>
-        <form method="post">
-            <p>
-                Username:
-                <input type="text" name="username" value="<?php echo htmlEscape($username) ?>" />
-            </p>
-            <p>
-                Password:
-                <input type="password" name="password" />
-            </p>
-            <input type="submit" name="submit" value="Login" />
-        </form>
+        <main class="main">
+            <h1 class="main__title">Login</h1>
+            <form method="post" class="main__form">
+                <div class="form__box">
+                    <input class="form__input" type="text" name="username" placeholder="Username" value="<?php echo htmlEscape($username) ?>">
+                    <label class="form__label" for="username">Username</label>
+                </div>
+                <div class="form__box">
+                    <input class="form__input" type="password" name="password" placeholder="Password">
+                    <label class="form__label" for="username">Password</label>
+                </div>
+                <button class="form__button btn" type="submit"><span>Login</span></button>
+            </form>
+        </main>
     </body>
 </html>
