@@ -4,7 +4,7 @@ Creating a blog using _PHP_. For this blog, I will be creating different CRUDs n
 ## Tutorial
 To create this system, I'm following [John's tutorial](https://ilovephp.jondh.me.uk/en/tutorial/make-your-own-blog), which is an easy way to learn PHP.
 
-***NOTE***: *Although this tutorial is an easy and quick way of learning PHP, it's recommended to have, at least, basic knowledge in programming; the way the steps are taught may not be the best for people without prior programming knowledge.*
+***NOTE***: *Although this tutorial is an easy and quick way of learning PHP, it's recommended to have, at least, basic knowledge in programming; the way the steps are taught may not be the best for people without prior programming knowledge. This is my personal opinion, though.*
 
 ## Tools
 1. We'll need `XAMPP` for creating the system; any web server may be usable.
