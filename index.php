@@ -15,12 +15,8 @@ if (!$stmt) {
     throw new Exception('There was a problem running this query');
 }
 //Error message if user tries to go to login when user's already logged in.
-$errormsg = '';
-if (isset($_SESSION['errormsg'])) {
-    //This session variable is set in login.php
-    $errormsg = $_SESSION['errormsg'];
-    unset($_SESSION['errormsg']);
-}
+$forbidden = isset($_GET['forbidden']);
+//Error when a post is not found.
 $notFound = isset($_GET['not-found']);
 
 ?>
@@ -34,12 +30,16 @@ $notFound = isset($_GET['not-found']);
     </head>
     <body>
         <?php require 'templates/title.php' ?>
-        <?php if ($errormsg): ?>
-            <?php echo $errormsg ?>
+        <?php if ($forbidden): ?>
+            <div class="alert alert--warning">
+                <span class="alert__closeBtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                🚫 Forbidden: An username is already logged in.
+            </div> 
         <?php endif ?>
         <?php if ($notFound): ?>
-            <div style="border: 1px solid #ff6666; padding: 6px;">
-                Error: cannot find the requested blog post
+            <div class="alert alert--error">
+                <span class="alert__closeBtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                ❌ Error: Cannot find the requested blog post.
             </div>
         <?php endif ?>
         <?php while ($row = $stmt->fetch(PDO::FETCH_ASSOC)): ?>
